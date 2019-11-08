@@ -22,13 +22,13 @@ exports.run = async (client, message, args) => {
         });
 
         const pruneEmbed = new RichEmbed()
-            .setAuthor('Akane', client.user.avatarURL)
+            .setAuthor(message.member.user.tag, message.member.user.avatarURL)
             .setDescription(`${amount} messages was removed!`)
             .setTimestamp();
 
     	message.channel.send(pruneEmbed)
             .then(msg => {
-                msg.delete(2000)
+                msg.delete(2500)
             });
 
     }
