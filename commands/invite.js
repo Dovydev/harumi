@@ -22,7 +22,7 @@ exports.run = async (client, message, args) => {
             ${discord}
             `)
         .setColor(embedColor)
-        .attachFiles(['../discordbot/images/invite.png'])
+        .attachFiles(['../akane/images/invite.png'])
         .setTimestamp();
 
     await message.react('📧').then(message.delete(2500));
