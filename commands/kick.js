@@ -31,26 +31,28 @@ exports.run = async (client, message, args) => {
                 }
         }
 
-        if (user === message.author) return message.channel.send('You can\'t ban yourself').then(msg => {
+        if (user === message.author) return message.channel.send('You can\'t kick yourself').then(msg => {
             msg.delete(2500)
         });
-        if (!reason) return message.reply('You forgot to enter a reason for this ban!').then(msg => {
+        if (!reason) return message.reply('You forgot to enter a reason for this kick!').then(msg => {
             msg.delete(2500)
         });
-        if (!message.guild.member(user).bannable) return message.reply('You can\'t ban this user because you or the bot has not sufficient permissions!').then(msg => {
+        if (!message.guild.member(user).bannable) return message.reply('You can\'t kick this user because you or the bot has not sufficient permissions!').then(msg => {
             msg.delete(2500)
         });
 
-        await message.guild.ban(user);
+        await user.kick(reason)
+            .then(() => console.log(`Kicked ${member.displayName}`))
+            .catch(console.error);
 
-        const banEmbed = new RichEmbed()
+        const kickEmbed = new RichEmbed()
             .setAuthor(`${message.member.user.tag} (${message.member.user.id})`, message.member.user.avatarURL)
             .setDescription(`**Member:** ${user} (${user.id})
-                **Action:** ban
+                **Action:** kick
                 **Reason:** ${reason}`)
             .setFooter(`Case 0`)
             .setThumbnail(user.avatarURL)
-            .setColor("RED")
+            .setColor("#ffff00")
             .setTimestamp();
 
         if(channel){
@@ -59,7 +61,7 @@ exports.run = async (client, message, args) => {
             await message.guild.createChannel('logs',  { type: 'text' }).then(x => {x.send(banEmbed)});
         }
 
-    	//message.channel.send(banEmbed);
+    	//message.channel.send(kickEmbed);
 
     }
     else{
@@ -68,8 +70,8 @@ exports.run = async (client, message, args) => {
 };
 
 exports.help = {
-    name: 'ban',
-    aliases: ['userban'],
-    description: 'Ban user from server.',
-    usage: 'ban {@user} {reason}'
+    name: 'kick',
+    aliases: ['userkick'],
+    description: 'Kick user from server.',
+    usage: 'kick {@user} {reason}'
 };
