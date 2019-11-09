@@ -1,7 +1,7 @@
 const { RichEmbed } = require('discord.js');
 const { embedColor, discord, invite } = require('../config');
 const { noBotPerms } = require('../utils/errors');
-const { images } = require('../actions/pat.json')
+const { images } = require('../actions/hug.json')
 
 exports.run = async (client, message, args) => {
 
@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
     var text = args.splice(1).join(" ");
 
     const patEmbed = new RichEmbed()
-    .setDescription(`**${message.author} pats ${args[0]} ${text}**`)
+    .setDescription(`**${message.author} hugs ${args[0]} ${text}**`)
     .setTimestamp()
     .setImage(images[rnd])
     .setColor(embedColor);
@@ -22,8 +22,8 @@ exports.run = async (client, message, args) => {
 };
 
 exports.help = {
-    name: 'pat',
-    aliases: ['actionpat'],
-    description: 'Pat a user!',
-    help: 'pat @user'
+    name: 'hug',
+    aliases: ['actionhug'],
+    description: 'Hug a user!',
+    help: 'hug @user'
 };
