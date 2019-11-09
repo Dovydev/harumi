@@ -17,10 +17,12 @@ exports.run = async (client, message, args) => {
         if (amount > 100) return message.reply('You can`t delete more than 100 messages at once!');
         if (amount < 1) return message.reply('You have to delete at least 1 message!');
 
+        amount++;
         await message.channel.fetchMessages({ limit: amount }).then(messages => {
             message.channel.bulkDelete(messages)
         });
-
+        amount--;
+        
         const pruneEmbed = new RichEmbed()
             .setAuthor(message.member.user.tag, message.member.user.avatarURL)
             .setDescription(`${amount} messages was removed!`)
@@ -35,8 +37,6 @@ exports.run = async (client, message, args) => {
     else{
         message.channel.send("You don't have the permissions.");
     }
-
-    message.channel.send(infoEmbed);
 };
 
 exports.help = {
