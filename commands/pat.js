@@ -1,17 +1,20 @@
 const { RichEmbed } = require('discord.js');
 const { embedColor, discord, invite } = require('../config');
 const { noBotPerms } = require('../utils/errors');
-var fs = require('fs');
+var lineReader = require('line-reader');
+var links = [];
 
 exports.run = async (client, message, args) => {
 
     let perms = message.guild.me.permissions;
     if (!perms.has('SEND_MESSAGES')) return noBotPerms(message, 'SEND_MESSAGES');
-    if (!perms.has('VIEW_CHANNEL')) return noBotPerms(message, 'VIEW_CHANNEL');
+
+    lineReader.eachLine('../akane/actions/pat.txt', function(line, last) {
+        links.push(`${line}`);
+    });
 
     const patEmbed = new RichEmbed()
-    .setAuthor(`${message.member.user.tag} pats ${args[0]}`)
-    .setImage(link);
+    .setDescription(`${message.member.user.tag} pats ${args[0]}`)
     .setTimestamp()
     .setColor(embedColor);
 

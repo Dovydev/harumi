@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
 
     let perms = message.guild.me.permissions;
     if (!perms.has('ADD_REACTIONS')) return noBotPerms(message, 'ADD_REACTIONS');
-    if (!perms.has('VIEW_CHANNEL'')) return noBotPerms(message, 'VIEW_CHANNEL');
+    if (!perms.has('MANAGE_MESSAGES')) return noBotPerms(message, 'MANAGE_MESSAGES');
 
     const inviteEmbed = new RichEmbed()
         .setAuthor('Bot Invite Information', client.user.avatarURL)
