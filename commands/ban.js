@@ -2,17 +2,6 @@ const { RichEmbed } = require('discord.js');
 const { embedColor, discord, owner } = require('../config');
 const { version } = require('../package.json');
 const { noBotPerms } = require('../utils/errors');
-const fs = require('fs');
-
-var readJson = (path, cb) => {
-    fs.readFile(require.resolve(path), (err, data) => {
-        if (err)
-        cb(err)
-        else
-        cb(null, JSON.parse(data))
-    })
-}
-
 
 exports.run = async (client, message, args) => {
 
@@ -22,11 +11,6 @@ exports.run = async (client, message, args) => {
     var user = message.mentions.users.first();
     var reason = args.splice(1).join(" ");
     var guildid = message.guild.id;
-
-    readJson('../logging/casenumber.json', (err, caseids) => {
-        caseids.push(`{"${guildid}":0}`);
-        done(err);
-    });
 
     if (message.member.hasPermission(['BAN_MEMBERS', 'VIEW_CHANNEL'])) {
 
@@ -56,15 +40,17 @@ exports.run = async (client, message, args) => {
             msg.delete(2500)
         });
 
+        await message.guild.ban(user);
+
         const banEmbed = new RichEmbed()
             .setAuthor(`${message.member.user.tag} (${message.member.user.id})`, message.member.user.avatarURL)
-            .setDescription(`**Member:** ${user}
+            .setDescription(`**Member:** ${user} (${user.id})
                 **Action:** ban
                 **Reason:** ${reason}`)
-            .setFooter(`Case ${caseid}`)
+            .setFooter(`Case 0`)
+            .setThumbnail(user.avatarURL)
+            .setColor("RED")
             .setTimestamp();
-
-        caseid = caseid + 1;
 
     	message.channel.send(banEmbed);
 

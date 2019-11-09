@@ -12,6 +12,10 @@ exports.run = async (client, message, args) => {
     var rnd = Math.floor(Math.random() * count);
     var text = args.splice(1).join(" ");
 
+    if (args[0] == null || args[0] == undefined || args[0] == "") return message.channel.send('Mention a user after the command!').then(msg => {
+        msg.delete(2500)
+    });
+
     const patEmbed = new RichEmbed()
     .setDescription(`**${message.author} pats ${args[0]} ${text}**`)
     .setTimestamp()
@@ -25,5 +29,5 @@ exports.help = {
     name: 'pat',
     aliases: ['actionpat'],
     description: 'Pat a user!',
-    help: 'pat @user'
+    help: 'pat {@user}'
 };

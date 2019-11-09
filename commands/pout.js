@@ -1,7 +1,7 @@
 const { RichEmbed } = require('discord.js');
 const { embedColor, discord, invite } = require('../config');
 const { noBotPerms } = require('../utils/errors');
-const { images } = require('../actions/hug.json')
+const { images } = require('../actions/pout.json')
 
 exports.run = async (client, message, args) => {
 
@@ -10,14 +10,8 @@ exports.run = async (client, message, args) => {
 
     var count = Object.keys(images).length;
     var rnd = Math.floor(Math.random() * count);
-    var text = args.splice(1).join(" ");
-
-    if (args[0] == null || args[0] == undefined || args[0] == "") return message.channel.send('Mention a user after the command!').then(msg => {
-        msg.delete(2500)
-    });
 
     const patEmbed = new RichEmbed()
-    .setDescription(`**${message.author} hugs ${args[0]} ${text}**`)
     .setTimestamp()
     .setImage(images[rnd])
     .setColor(embedColor);
@@ -26,8 +20,8 @@ exports.run = async (client, message, args) => {
 };
 
 exports.help = {
-    name: 'hug',
-    aliases: ['actionhug'],
-    description: 'Hug a user!',
-    help: 'hug {@user}'
+    name: 'pout',
+    aliases: ['actionpout'],
+    description: 'Pout a user!',
+    help: 'pout'
 };

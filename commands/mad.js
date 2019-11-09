@@ -1,7 +1,7 @@
 const { RichEmbed } = require('discord.js');
 const { embedColor, discord, invite } = require('../config');
 const { noBotPerms } = require('../utils/errors');
-const { images } = require('../actions/hug.json')
+const { images } = require('../actions/mad.json')
 
 exports.run = async (client, message, args) => {
 
@@ -11,13 +11,17 @@ exports.run = async (client, message, args) => {
     var count = Object.keys(images).length;
     var rnd = Math.floor(Math.random() * count);
     var text = args.splice(1).join(" ");
+    var desc;
 
-    if (args[0] == null || args[0] == undefined || args[0] == "") return message.channel.send('Mention a user after the command!').then(msg => {
-        msg.delete(2500)
-    });
+    if(args[0] == null || args[0] == undefined || args[0] == ""){
+        desc = "";
+    }
+    else{
+        desc = `at ${args[0]} ${text}`;
+    }
 
     const patEmbed = new RichEmbed()
-    .setDescription(`**${message.author} hugs ${args[0]} ${text}**`)
+    .setDescription(`**${message.author} is mad ${desc}**`)
     .setTimestamp()
     .setImage(images[rnd])
     .setColor(embedColor);
@@ -26,8 +30,8 @@ exports.run = async (client, message, args) => {
 };
 
 exports.help = {
-    name: 'hug',
-    aliases: ['actionhug'],
-    description: 'Hug a user!',
-    help: 'hug {@user}'
+    name: 'mad',
+    aliases: ['actionmad'],
+    description: 'Be mad, or be mad at someone!',
+    help: 'pat {@user}'
 };
