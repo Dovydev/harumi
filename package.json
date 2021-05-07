@@ -45,7 +45,7 @@
     "simple-youtube-api": "^5.2.1",
     "sqlite3": "^4.1.0",
     "stack": "^0.1.0",
-    "underscore": "^1.9.1",
+    "underscore": "^1.12.1",
     "ytdl": "^0.13.1",
     "ytdl-core": "^1.0.0"
   },
